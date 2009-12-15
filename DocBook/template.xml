@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<book xmlns="http://docbook.org/ns/docbook"
+      version="5.0"
+      xml:id="">
+
+  <!-- You may also enjoy these name spaces -->
+  <!-- To store your DocBook document in multiple pages,
+       use the XInclude namespace:
+       
+       xmlns:xi="http://www.w3.org/2001/XInclude"
+  -->
+  <!-- If you wish to make links elsewhere, use the XLink ns:
+       
+       xmlns:xl="http://www.w3.org/1999/xlink"
+  -->
+
+  <!-- Begin Meta Info Section -->
+
+  <info>
+    <title></title>
+
+    <!--    
+    <subtitle></subtitle>
+    -->
+
+    <!--
+    <date></date>
+    -->
+    
+    <authorgroup>
+      <author>
+	<personname>
+	  <firstname></firstname>
+	  <othername></othername>
+	  <surname></surname>
+	</personname>
+	<email></email>
+	<contrib></contrib>
+      </author>
+    </authorgroup>
+
+    <!--
+    <revhistory>
+      <revision>
+	<revnumber></revnumber>
+	<date></date>
+	<authorinitials></authorinitials>
+	<revremark></revremark>
+      </revision>
+    </revhistory>
+    -->
+
+    <!--
+    <legalnotice>
+      <para>
+	
+      </para>
+    </legalnotice>
+    -->
+
+    <!--
+    <copyright>
+      <year></year>
+      <holder></holder>
+    </copyright>
+    -->
+
+    <!--
+    <abstract>
+      <title>Introduction</title>
+      
+      <para>
+	
+      </para>
+      
+    </abstract>
+    -->
+  </info>
+
+  <!-- Begin Book Contents -->
+
+  <!-- <xi:include href="a_file.xml"/> -->
+  
+  <!-- <index /> -->
+</book>
