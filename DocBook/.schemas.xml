@@ -4,5 +4,5 @@
   <documentElement localName="chapter" typeId="DocBook"/>
   <documentElement localName="article" typeId="DocBook"/>
   <documentElement localName="book" typeId="DocBook"/>
-  <typeId id="DocBook" uri="%STYLEDIR%/docbookxi.rnc"/>
+  <typeId id="DocBook" uri="%SCHEMADIR%/docbookxi.rnc"/>
 </locatingRules>

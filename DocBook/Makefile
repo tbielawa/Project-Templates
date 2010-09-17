@@ -104,6 +104,9 @@ pdf:
 
 docs: docdir html pdf chunked
 
+locator:
+	sed "s'%SCHEMADIR%'$(SCHEMADIR)'" .schemas.xml > schemas.xml
+
 clean:
 	$(FIND)  \( -regex "^[.]?(.+)\~$$" -o -regex "./[.]?#.*#" \) -delete
 	rm -fR output/*
