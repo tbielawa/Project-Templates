@@ -69,6 +69,22 @@ else
 endif
 
 ##################################################################
+# DocBook5 Schema
+#
+# Uncomment the applicable path to your system
+#
+# SCHEMADIR - Directory holding the DocBook5 RNC/RNG DTDs
+##################################################################
+# Fedora - Package: docbook5-schemas
+SCHEMADIR = /usr/share/xml/docbook5/schema/rng/5.0
+
+# OS X - Package (MacPorts): docbook-xml-5.0
+# SCHEMADIR = /opt/local/share/xml/docbook/5.0/rng
+
+# Ubuntu - Package: docbook5-xml
+# SCHEMADIR = /usr/share/xml/docbook/schema/rng/5.0
+
+##################################################################
 # Build targets
 ##################################################################
 all: clean docs
