@@ -1,21 +1,58 @@
 #!/usr/bin/make -f
 
 ##################################################################
-# Main including file
+# General settings
+#
+# INPUT - Main including file without .xml suffix
+# OUTPUT - Generated document minus target suffix
+# DEST - Destination for (non-chunked) transformations
+# CHUNKDIR - Destination for chunked HTML transformations
+# OUTPUT - "Path/Name" of generated (non-chunked) documents.
 ##################################################################
-INDEX = Virtual-Disk-Operations
+INPUT = index
+OUTPUT = index
+DEST = .
+CHUNKDIR = html
+OUTFILE = $(DEST)/$(OUTPUT)
 
 ##################################################################
-# Settings for HTML Transformations
+# Stylesheet configuration
+#
+# Uncomment the proper stylesheet directory for your machine
+#
+# STYLEDIR - Directory holding xsl-ns stylesheet distribution
+# HTML_xsl - Stylesheet for HTML transformations
+# HTML_CHUNKED_xsl - Stylesheet for Chunked HTML transformations
 ##################################################################
-XSLTPARAMS = --xinclude -o output/$(INDEX).html \
-	 --stringparam  section.autolabel 1
-
-# Uncomment the proper stylesheet for your distro
 # Fedora - Package: docbook5-style-xsl
-HTMLSTYLESHEET = /usr/share/sgml/docbook/xsl-ns-stylesheets/html/docbook.xsl
+STYLEDIR = /usr/share/sgml/docbook/xsl-ns-stylesheets/
+
 # Ubuntu - Package: docbook-xsl-ns
-# HTMLSTYLESHEET = /usr/share/xml/docbook/stylesheet/docbook-xsl-ns/html/docbook.xsl
+# STYLEDIR = /usr/share/xml/docbook/stylesheet/docbook-xsl-ns/
+
+# OS X - Package (Macports): docbook-xsl
+# STYLEDIR = /opt/local/share/xsl/docbook-xsl
+
+HTML_xsl = $(STYLEDIR)/html/docbook.xsl
+HTML_CHUNKED_xsl = $(STYLEDIR)/html/chunk.xsl
+
+##################################################################
+# Options for transformations
+#
+# XSLTPARAMS - Options applicable to single/chunked output
+# XSLT_HTML_PARAMS - Options specific to sigle HTML output
+# DBLATEX_PARAMS - Options specific to dblatex PDF output
+##################################################################
+XSLTPARAMS = --xinclude \
+	--stringparam section.autolabel 1
+
+XSLT_HTML_PARAMS = -o $(OUTFILE).html
+
+XSLT_CHUNKED_PARAMS = --stringparam base.dir $(CHUNKDIR)/
+
+DBLATEX_PARAMS = -o $(OUTFILE).pdf \
+	-P latex.class.options=11pt \
+	-P term.breakline=1
 
 ##################################################################
 # Use the proper options for the target platform
@@ -36,13 +73,20 @@ endif
 ##################################################################
 all: clean docs
 
+docdir:
+	mkdir -p $(DEST)
+	mkdir -p $(CHUNKDIR)
+
+chunked:
+	xsltproc $(XSLTPARAMS) $(XSLT_CHUNKED_PARAMS) $(HTML_CHUNKED_xsl) $(INPUT).xml
+
 html:
-	xsltproc $(XSLTPARAMS) $(HTMLSTYLESHEET) $(INDEX).xml
+	xsltproc $(XSLTPARAMS) $(XSLT_HTML_PARAMS) $(HTML_xsl) $(INPUT).xml
 
 pdf:
-	dblatex -o output/$(INDEX).pdf -P latex.class.options=11pt -P term.breakline=1 $(INDEX).xml
+	dblatex $(DBLATEX_PARAMS) $(INPUT).xml
 
-docs: html pdf
+docs: docdir html pdf chunked
 
 clean:
 	$(FIND)  \( -regex "^[.]?(.+)\~$$" -o -regex "./[.]?#.*#" \) -delete
